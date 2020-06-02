@@ -1,0 +1,81 @@
+body
+{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	background: linear-gradient(#007bff(0, 0, 50, 0.5)), url(crowdsale_image.png);
+	background-position: center;
+	font-family: sans-serif;
+}
+
+.contact-title 
+{
+	margin-top= 100px;
+	color: #007bff;
+	text-transform: uppercase;
+	transition: all 4s ease-in-out;
+}
+
+.contact-title h1
+{
+	font-size: 32px;
+	line-height: 10px;
+}
+
+.contact-title h2{
+	font-size: 16px;
+}
+
+form 
+{
+	margin-top: 50px;
+	transition: all 4s ease-in-out;
+	background:#007bff;
+	color: #333;
+ }
+
+.form-control 
+{
+	width: 600px;
+	background: transaparent;
+	border: none;
+	outline: none;
+	border-bottom: 1px solid gray;
+	color: #007bff;
+	font-size: 18px;
+	margin-bottom: 16px;
+}
+
+input {
+
+	height: 45px;
+}
+
+form .submit {
+	background: #007bff;
+	border-color: transaparent;
+	color: #007bff;
+	font-size: 20px;
+	font-weight: bold;
+	letter-spacing: 2px;
+	height: 50px;
+	margin-top: 20px;
+}
+
+form .submit:hover
+{
+	background-color: #007bff;
+	cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
