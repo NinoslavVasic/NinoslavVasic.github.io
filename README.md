@@ -4,4 +4,4 @@ This application is an online auction system for the Patent Foundation to auctio
 
 ### Demo App
 
-Click [here](index.html) to launch the PatentMarket application.
+Click [here](https://ninoslavvasic.github.io/) to launch the PatentMarket application.
