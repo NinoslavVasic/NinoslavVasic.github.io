@@ -11,7 +11,7 @@ body
 .contact-title 
 {
 	margin-top= 100px;
-	color: black;
+	color: ffff;
 	text-transform: uppercase;
 	transition: all 4s ease-in-out;
 }
@@ -30,18 +30,18 @@ form
 {
 	margin-top: 50px;
 	transition: all 4s ease-in-out;
-	background: white;
+	background: ffff;
 	
 }
 
 .form-control 
 {
 	width: 600px;
-	background: none; 
+	background: transparent; 
 	border: none;
 	outline: none;
 	border-bottom: 1px solid gray;
-	color: white;
+	color: gray;
 	font-size: 18px;
 	margin-bottom: 16px;
 }
@@ -52,9 +52,9 @@ input {
 }
 
 form .submit {
-	background: white;
+	background: gray;
 	border-color: transaparent;
-	color: black;
+	color: gray;
 	font-size: 20px;
 	font-weight: bold;
 	letter-spacing: 2px;
@@ -65,7 +65,7 @@ form .submit {
 
 form .submit:hover
 {
-	background-color: none;
+	background-color: ffff;
 	cursor: pointer;
 }
 
