@@ -37,7 +37,7 @@ form
 .form-control 
 {
 	width: 600px;
-	background: #007bff; 
+	background: none; 
 	border: none;
 	outline: none;
 	border-bottom: 1px solid #007bff;
@@ -52,9 +52,9 @@ input {
 }
 
 form .submit {
-	background: #007rff;
+	background: gray;
 	border-color: transaparent;
-	color: #007bff;
+	color: gray;
 	font-size: 20px;
 	font-weight: bold;
 	letter-spacing: 2px;
