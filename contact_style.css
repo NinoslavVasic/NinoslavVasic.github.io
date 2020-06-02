@@ -54,7 +54,7 @@ input {
 form .submit {
 	background: black;
 	border-color: transaparent;
-	color: orange;
+	color: purple;
 	font-size: 20px;
 	font-weight: bold;
 	letter-spacing: 2px;
@@ -65,7 +65,7 @@ form .submit {
 
 form .submit:hover
 {
-	background-color: green;
+	background-color: light red;
 	cursor: pointer;
 }
 
