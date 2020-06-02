@@ -102,8 +102,8 @@ h1:after
 
 .img-box:hover li
 {
-	color: #007bff;
-	border: 1px solid #007bff;
+	color: red;
+	border: 1px solid red;
 }
 
 .img-box:after, .img-box ul, .img-box ul li
