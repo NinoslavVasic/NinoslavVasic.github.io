@@ -52,9 +52,9 @@ input {
 }
 
 form .submit {
-	background: gray;
+	background: black;
 	border-color: transaparent;
-	color: black;
+	color: gray;
 	font-size: 20px;
 	font-weight: bold;
 	letter-spacing: 2px;
