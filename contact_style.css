@@ -11,7 +11,7 @@ body
 .contact-title 
 {
 	margin-top= 100px;
-	color: gray;
+	color: #007bff;
 	text-transform: uppercase;
 	transition: all 4s ease-in-out;
 }
@@ -30,14 +30,14 @@ form
 {
 	margin-top: 50px;
 	transition: all 4s ease-in-out;
-	background:gray;
+	background:#007bff;
 	
 }
 
 .form-control 
 {
 	width: 600px;
-	background: light blue; 
+	background: light gray; 
 	border: none;
 	outline: none;
 	border-bottom: 1px solid gray;
