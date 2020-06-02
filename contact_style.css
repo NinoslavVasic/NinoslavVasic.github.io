@@ -37,7 +37,7 @@ form
 .form-control 
 {
 	width: 600px;
-	background: light gray; 
+	background: #007bff; 
 	border: none;
 	outline: none;
 	border-bottom: 1px solid #007bff;
