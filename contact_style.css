@@ -52,7 +52,7 @@ input {
 }
 
 form .submit {
-	background: gray;
+	background: blue;
 	border-color: transaparent;
 	color: gray;
 	font-size: 20px;
@@ -65,7 +65,7 @@ form .submit {
 
 form .submit:hover
 {
-	background-color: gray;
+	background-color: blue;
 	cursor: pointer;
 }
 
