@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <meta charset="UTF-8">
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- JQuery 3.4.1 slim minified -->
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+    crossorigin="anonymous"></script>
+
   <!-- Compiled and minified Materialize CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" integrity="sha256-OweaP/Ic6rsV+lysfyS4h+LM6sRwuO3euTYfr6M124g=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
   <!-- FontAwesome icons -->
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+  <!-- Compiled and minified JavaScript for Materialize CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 <link rel="stylesheet" type="text/css" href="team_style.css">
 <body class="grey lighten-4">
@@ -43,15 +49,17 @@
 </body>
 
 <head>
+
+
+<head>
 	<title>CSS Border (Table-Rounded Corners)</title>
-	<style>
-		table {
-			border: 2px solid red;
-			border-radius: 18px;
-		}
-	</style>
+  <style>
+  .card-image > img {
+    max-height: 250px;
+  }
+  </style>
 </head>
-    <body>
+<body>
 		<table>
 		<tr> 
 			<td> Welcome to the Patent Foundation's open marketplace. This market serves to raise funds for the Patent development project
@@ -65,8 +73,7 @@
       </td>
 		</tr>
 	</table>
-
-    <hr />
+<hr />
 
 		<!--  navigational list -->
 		<nav>
@@ -99,7 +106,10 @@
 	<br/>
 		<br/>
 			<br/>
-			<fieldset>
+
+<body class="grey lighten-3">
+  <div class="container" style="text-align: center">
+	<fieldset>
 				<legend> PATENT Name </legend>
 				<div id="dapp-tokens" class="row">
 					<div class="card">
@@ -113,37 +123,22 @@
 					</div>
 				  </div>
 			</fieldset>
-	<br/>
-		<fieldset>
-	<legend> PATENT - Upload on IPFS! </legend>
-	<div class="col s12 m6 dapp-admin">
-		<div class="card blue-lighten darken-1">
-		  <div class="card-content black-text">
-			<span class="card-title"><input id="dapp-register-name" placeholder="Patent name..." /></span>
-			<p>Image: <input id="dapp-copyright-image" type="file" /></p>
-  
-			<p><input id="dapp-pinata-api-key" placeholder="Pinata API Key"/></p>
-			<p><input id="dapp-pinata-secret-api-key" placeholder="Pinata Secret API Key" type="password" /></p>
-			<p>Note: Pinata requests are done locally via your browser. Your keys are not shared with any party except Pinata.</p>
-			<br/>
-		  </div>
-		  <div class="card-action">
-			<a id="dapp-register" href="#" onclick="dApp.registerPatent()">Register Patent</a>
-		  </div>
-		</div>
-	  </div>
-  
-	</div>
 
-	</fieldset>
-  <!-- JQuery 3.4.1 slim minified -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
-  <!-- Compiled and minified JavaScript for Materialize CSS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" integrity="sha256-U/cHDMTIHCeMcvehBv1xQ052bPSbJtbuiw4QA9cTKz0=" crossorigin="anonymous"></script>
-  <!-- Web3.js -->
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.2.5-rc.0/dist/web3.min.js" integrity="sha256-ZjUHyLZZWkQPbWfRjTSmGtfcTSOermVT6f/CvJW2RY4=" crossorigin="anonymous"></script>
-  <!-- dApp JavaScript -->
-  <script src="dapp.js"></script>
+    <legend> PATENT - Upload on IPFS! </legend>
+    <div class="col s12 m6 dapp-admin">
+      <div class="card blue-lighten darken-1">
+        <div class="card-content black-text">
+          <span class="card-title"><input id="dapp-register-name" placeholder="Patent name..." /></span>
+          <p><input id="dapp-register-image" placeholder="Landmark image URL..." /></p>
+        </div>
+        <div class="card-action">
+          <a id="dapp-register" href="#" onclick="window.dApp.registerPatent()">Register Patent</a>
+        </div>
+      </div>
+    </div>
 
+  </div>
+
+  <script type="text/javascript" src="./dapp.js"></script>
 </body>
 </html>
