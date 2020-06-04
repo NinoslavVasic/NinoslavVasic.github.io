@@ -72,7 +72,7 @@ const dApp = {
               <div class="card">
                 <div class="card-image">
                   <img id="dapp-image" src="https://gateway.pinata.cloud/ipfs/${token.image.replace("ipfs://", "")}">
-                  <span id="dapp-name" class="card-title">${token.name}</span>
+                  <span id="dapp-name" class="card-title">${token.name}, ID:${token.tokenId}</span>
                 </div>
                 <div class="card-action">
                   <input type="number" min="${token.highestBid + 1}" name="dapp-wei" value="${token.highestBid + 1}" ${token.auctionEnded ? 'disabled' : ''}>
