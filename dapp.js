@@ -3,7 +3,7 @@ import auctionJson from "./PatentAuction.json";
 
 const Web3 = require("web3");
 
-const contractAddress = "0x2959A75AFd15b4AA4607923dfD9e98D879F1B5E8"; // insert PatentMarket contract address here
+const contractAddress = "0xf9893B9cA98B7626a21B9D279706f117137d057a"; // insert PatentMarket contract address here
 
 const dApp = {
   ethEnabled: function() {
