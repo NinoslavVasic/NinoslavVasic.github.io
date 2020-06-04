@@ -1,6 +1,7 @@
 // @TODO: Update this address to match your deployed PatentMarket contract!
 const contractAddress = "0xf1bc2f30a21E391C46515D88C08e6caAbbfCdB10";
 
+
 const dApp = {
   ethEnabled: function() {
     // If the browser has an Ethereum provider (MetaMask) installed
@@ -73,6 +74,7 @@ const dApp = {
                 <div class="card-image">
                   <img id="dapp-image" src="https://gateway.pinata.cloud/ipfs/${token.image.replace("ipfs://", "")}">
                   <span id="dapp-name" class="card-title">${token.name}</span>
+		  <span id="dapp-tokenid" class="card-title">${token.tokenId}</span>
                 </div>
                 <div class="card-action">
                   <input type="number" min="${token.highestBid + 1}" name="dapp-wei" value="${token.highestBid + 1}" ${token.auctionEnded ? 'disabled' : ''}>
@@ -111,6 +113,7 @@ const dApp = {
       await this.updateUI();
     });
   },
+
   registerPatent: async function() {
     const name = $("#dapp-register-name").val();
     const image = document.querySelector('input[type="file"]');
@@ -122,7 +125,7 @@ const dApp = {
       M.toast({ html: "Please fill out then entire form!" });
       return;
     }
-
+    
     const image_data = new FormData();
     image_data.append("file", image.files[0]);
     image_data.append("pinataOptions", JSON.stringify({cidVersion: 1}));
@@ -186,7 +189,7 @@ const dApp = {
     this.accounts = await window.web3.eth.getAccounts();
     this.contractAddress = contractAddress;
 
-    this.marketJson = await (await fetch("./PatentMarket.json")).json();
+    this.patentJson = await (await fetch("./PatentMarket.json")).json();
     this.auctionJson = await (await fetch("./PatentAuction.json")).json();
 
     this.patentContract = new window.web3.eth.Contract(
