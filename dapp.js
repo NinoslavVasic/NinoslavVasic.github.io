@@ -165,7 +165,7 @@ const dApp = {
       M.toast({ html: `Success. Reference URI located at ${reference_uri}.` });
       M.toast({ html: "Sending to blockchain..." });
 
-      await this.marsContract.methods.registerLand(reference_uri).send({from: this.accounts[0]}, async () => {
+      await this.patentContract.methods.registerPatent(reference_uri).send({from: this.accounts[0]}, async () => {
         $("#dapp-register-name").val("");
         $("#dapp-register-image").val("");
         await this.updateUI();
