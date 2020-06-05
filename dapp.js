@@ -117,22 +117,18 @@ const dApp = {
     });
   },
 
-  registerPatent: async function() {
+  _registerPatent: async function () {
     const name = $("#dapp-register-name").val();
     const image = document.querySelector('input[type="file"]');
-
     const pinata_api_key = $("#dapp-pinata-api-key").val();
     const pinata_secret_api_key = $("#dapp-pinata-secret-api-key").val();
-
     if (!pinata_api_key || !pinata_secret_api_key || !name || !image) {
       M.toast({ html: "Please fill out then entire form!" });
       return;
     }
-    
     const image_data = new FormData();
     image_data.append("file", image.files[0]);
-    image_data.append("pinataOptions", JSON.stringify({cidVersion: 1}));
-
+    image_data.append("pinataOptions", JSON.stringify({ cidVersion: 1 }));
     try {
       M.toast({ html: "Uploading Image to IPFS via Pinata..." });
       const image_upload_response = await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS", {
@@ -144,18 +140,14 @@ const dApp = {
         },
         body: image_data,
       });
-
       const image_hash = await image_upload_response.json();
       const image_uri = `ipfs://${image_hash.IpfsHash}`;
-
       M.toast({ html: `Success. Image located at ${image_uri}.` });
       M.toast({ html: "Uploading JSON..." });
-
       const reference_json = JSON.stringify({
         pinataContent: { name, image: image_uri },
-        pinataOptions: {cidVersion: 1}
+        pinataOptions: { cidVersion: 1 }
       });
-
       const json_upload_response = await fetch("https://api.pinata.cloud/pinning/pinJSONToIPFS", {
         method: "POST",
         mode: "cors",
@@ -166,22 +158,25 @@ const dApp = {
         },
         body: reference_json
       });
-
       const reference_hash = await json_upload_response.json();
       const reference_uri = `ipfs://${reference_hash.IpfsHash}`;
-
       M.toast({ html: `Success. Reference URI located at ${reference_uri}.` });
       M.toast({ html: "Sending to blockchain..." });
-
-      await this.patentContract.methods.registerPatent(reference_uri).send({from: this.accounts[0]}, async () => {
+      await this.patentContract.methods.registerPatent(reference_uri).send({ from: this.accounts[0] }, async () => {
         $("#dapp-register-name").val("");
         $("#dapp-register-image").val("");
         await this.updateUI();
       });
-
-    } catch (e) {
+    }
+    catch (e) {
       alert("ERROR:", JSON.stringify(e));
     }
+  },
+  get registerPatent() {
+    return this._registerPatent;
+  },
+  set registerPatent(value) {
+    this._registerPatent = value;
   },
   main: async function() {
     // Initialize web3
