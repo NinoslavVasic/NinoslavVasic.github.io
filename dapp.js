@@ -196,7 +196,7 @@ const dApp = {
     );
     console.log("Contract object", this.patentContract);
 
-    this.isAdmin = this.accounts[0] == await this.patentContract.methods.owner();
+    this.isAdmin = this.accounts[0] == await this.patentContract.methods.ownership.call();
 
     await this.updateUI();
   }
