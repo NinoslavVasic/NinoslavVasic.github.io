@@ -72,13 +72,8 @@ const dApp = {
               <div class="card">
                 <div class="card-image">
                   <img id="dapp-image" src="https://gateway.pinata.cloud/ipfs/${token.image.replace("ipfs://", "")}">
-<<<<<<< HEAD
-                  <span id="dapp-name" class="card-title">${token.name}</span>
-                </div>
-=======
-                  <span id="dapp-name" class="card-title">${token.name} ID:${token.tokenId}</span>
+                  <span id="dapp-name" class="card-title">${token.name}, ID:${token.tokenId}</span>
 		  </div>
->>>>>>> 3347dc0854809f0d21176f25e233dfff314f2099
                 <div class="card-action">
                   <input type="number" min="${token.highestBid + 1}" name="dapp-wei" value="${token.highestBid + 1}" ${token.auctionEnded ? 'disabled' : ''}>
                   ${token.auctionEnded ? owner : bid}
