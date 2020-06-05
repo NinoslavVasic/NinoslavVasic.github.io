@@ -32,13 +32,14 @@ const dApp = {
           tokenId: i,
           highestBid: Number(await this.patentContract.methods.highestBid(i).call()),
           auctionEnded: Boolean(await this.patentContract.methods.auctionEnded(i).call()),
-          pendingReturn: Number(await this.patentContract.methods.pendingReturn(i, this.accounts[0]).call()),
+          owner: await this.patentContract.methods.ownerOf(i).call(),
+	  pendingReturn: Number(await this.patentContract.methods.pendingReturn(i, this.accounts[0]).call()),
           auction: new window.web3.eth.Contract(
             this.auctionJson,
             await this.patentContract.methods.auctions(i).call(),
             { defaultAccount: this.accounts[0] }
           ),
-          owner: await this.patentContract.methods.ownerOf(i).call(),
+          
           ...token_json
         });
       } catch (e) {
