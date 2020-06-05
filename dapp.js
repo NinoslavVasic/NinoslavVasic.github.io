@@ -4,20 +4,17 @@ const contractAddress = "0xf1bc2f30a21E391C46515D88C08e6caAbbfCdB10";
 const dApp = {
   ethEnabled: function() {
     // If the browser has an Ethereum provider (MetaMask) installed
-	console.log(window.ethereum);
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       window.ethereum.enable();
       return true;
     }
-	
     return false;
   },
   collectVars: async function() {
-    // get Patent tokens
+    // get patent tokens
     this.tokens = [];
-   // this.totalSupply = await this.patentContract.methods.totalSupply().call();    //*EDIT*
-   this.totalSupply = await this.patentContract.methods.totalSupply().call();
+    this.totalSupply = await this.patentContract.methods.totalSupply().call();
 
     // fetch json metadata from IPFS (name, description, image, etc)
     const fetchMetadata = (reference_uri) => fetch(`https://gateway.pinata.cloud/ipfs/${reference_uri.replace("ipfs://", "")}`, { mode: "cors" }).then((resp) => resp.json());
@@ -72,13 +69,8 @@ const dApp = {
               <div class="card">
                 <div class="card-image">
                   <img id="dapp-image" src="https://gateway.pinata.cloud/ipfs/${token.image.replace("ipfs://", "")}">
-<<<<<<< HEAD
                   <span id="dapp-name" class="card-title">${token.name}</span>
                 </div>
-=======
-                  <span id="dapp-name" class="card-title">${token.name} ID:${token.tokenId}</span>
-		  </div>
->>>>>>> 3347dc0854809f0d21176f25e233dfff314f2099
                 <div class="card-action">
                   <input type="number" min="${token.highestBid + 1}" name="dapp-wei" value="${token.highestBid + 1}" ${token.auctionEnded ? 'disabled' : ''}>
                   ${token.auctionEnded ? owner : bid}
@@ -99,7 +91,8 @@ const dApp = {
   },
   bid: async function(event) {
     const tokenId = $(event.target).attr("id");
-    const wei = Number($(event.target).prev().val());
+    const ether = $(event.target).prev().val();
+    wei = web3.utils.toWei(ether, 'ether');
     await this.patentContract.methods.bid(tokenId).send({from: this.accounts[0], value: wei}, async () => {
       await this.updateUI();
     });
@@ -172,7 +165,7 @@ const dApp = {
       M.toast({ html: `Success. Reference URI located at ${reference_uri}.` });
       M.toast({ html: "Sending to blockchain..." });
 
-      await this.patentContract.methods.registerPatent(reference_uri).send({from: this.accounts[0]}, async () => {
+      await this.marsContract.methods.registerLand(reference_uri).send({from: this.accounts[0]}, async () => {
         $("#dapp-register-name").val("");
         $("#dapp-register-image").val("");
         await this.updateUI();
