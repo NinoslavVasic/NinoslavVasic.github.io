@@ -1,21 +1,23 @@
-
 // @TODO: Update this address to match your deployed PatentMarket contract!
 const contractAddress = "0x80d809297e295903D23A070b7d1ACf7A21849c4b";
 
 const dApp = {
   ethEnabled: function() {
     // If the browser has an Ethereum provider (MetaMask) installed
+	console.log(window.ethereum);
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       window.ethereum.enable();
       return true;
     }
+	
     return false;
   },
   collectVars: async function() {
-    // get patent tokens
+    // get Patent tokens
     this.tokens = [];
-    this.totalSupply = await this.patentContract.methods.totalSupply().call();
+   // this.totalSupply = await this.patentContract.methods.totalSupply().call();    //*EDIT*
+   this.totalSupply = await this.patentContract.methods.totalSupply().call();
 
     // fetch json metadata from IPFS (name, description, image, etc)
     const fetchMetadata = (reference_uri) => fetch(`https://gateway.pinata.cloud/ipfs/${reference_uri.replace("ipfs://", "")}`, { mode: "cors" }).then((resp) => resp.json());
@@ -70,9 +72,13 @@ const dApp = {
               <div class="card">
                 <div class="card-image">
                   <img id="dapp-image" src="https://gateway.pinata.cloud/ipfs/${token.image.replace("ipfs://", "")}">
+<<<<<<< HEAD
                   <span id="dapp-name" class="card-title">${token.name}</span>
-		  <span id="dapp-tokenid" class="card-title">${token.tokenId}</span>
                 </div>
+=======
+                  <span id="dapp-name" class="card-title">${token.name} ID:${token.tokenId}</span>
+		  </div>
+>>>>>>> 3347dc0854809f0d21176f25e233dfff314f2099
                 <div class="card-action">
                   <input type="number" min="${token.highestBid + 1}" name="dapp-wei" value="${token.highestBid + 1}" ${token.auctionEnded ? 'disabled' : ''}>
                   ${token.auctionEnded ? owner : bid}
@@ -93,8 +99,7 @@ const dApp = {
   },
   bid: async function(event) {
     const tokenId = $(event.target).attr("id");
-    const ether = $(event.target).prev().val();
-    wei = web3.utils.toWei(ether, 'ether');
+    const wei = Number($(event.target).prev().val());
     await this.patentContract.methods.bid(tokenId).send({from: this.accounts[0], value: wei}, async () => {
       await this.updateUI();
     });
@@ -111,19 +116,22 @@ const dApp = {
       await this.updateUI();
     });
   },
-
-  registerPatent: async function () {
+  registerPatent: async function() {
     const name = $("#dapp-register-name").val();
     const image = document.querySelector('input[type="file"]');
+
     const pinata_api_key = $("#dapp-pinata-api-key").val();
     const pinata_secret_api_key = $("#dapp-pinata-secret-api-key").val();
+
     if (!pinata_api_key || !pinata_secret_api_key || !name || !image) {
       M.toast({ html: "Please fill out then entire form!" });
       return;
     }
+
     const image_data = new FormData();
     image_data.append("file", image.files[0]);
-    image_data.append("pinataOptions", JSON.stringify({ cidVersion: 1 }));
+    image_data.append("pinataOptions", JSON.stringify({cidVersion: 1}));
+
     try {
       M.toast({ html: "Uploading Image to IPFS via Pinata..." });
       const image_upload_response = await fetch("https://api.pinata.cloud/pinning/pinFileToIPFS", {
@@ -135,14 +143,18 @@ const dApp = {
         },
         body: image_data,
       });
+
       const image_hash = await image_upload_response.json();
       const image_uri = `ipfs://${image_hash.IpfsHash}`;
+
       M.toast({ html: `Success. Image located at ${image_uri}.` });
       M.toast({ html: "Uploading JSON..." });
+
       const reference_json = JSON.stringify({
         pinataContent: { name, image: image_uri },
-        pinataOptions: { cidVersion: 1 }
+        pinataOptions: {cidVersion: 1}
       });
+
       const json_upload_response = await fetch("https://api.pinata.cloud/pinning/pinJSONToIPFS", {
         method: "POST",
         mode: "cors",
@@ -153,25 +165,22 @@ const dApp = {
         },
         body: reference_json
       });
+
       const reference_hash = await json_upload_response.json();
       const reference_uri = `ipfs://${reference_hash.IpfsHash}`;
+
       M.toast({ html: `Success. Reference URI located at ${reference_uri}.` });
       M.toast({ html: "Sending to blockchain..." });
-      await this.patentContract.methods.registerPatent(reference_uri).send({ from: this.accounts[0] }, async () => {
+
+      await this.patentContract.methods.registerPatent(reference_uri).send({from: this.accounts[0]}, async () => {
         $("#dapp-register-name").val("");
         $("#dapp-register-image").val("");
         await this.updateUI();
       });
-    }
-    catch (e) {
+
+    } catch (e) {
       alert("ERROR:", JSON.stringify(e));
     }
-  },
-  get registerPatent() {
-    return this._registerPatent;
-  },
-  set registerPatent(value) {
-    this._registerPatent = value;
   },
   main: async function() {
     // Initialize web3
