@@ -1,20 +1,24 @@
-// @TODO: Update this address to match your deployed PatentMarket contract!
+/ @TODO: Update this address to match your deployed PatentMarket contract!
 const contractAddress = "0xf1bc2f30a21E391C46515D88C08e6caAbbfCdB10";
+document.getElementById("dispContractAddress").innerHTML = contractAddress;
 
 const dApp = {
   ethEnabled: function() {
     // If the browser has an Ethereum provider (MetaMask) installed
+	console.log(window.ethereum);
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum);
       window.ethereum.enable();
       return true;
     }
+	
     return false;
   },
   collectVars: async function() {
-    // get patent tokens
+    // get Patent tokens
     this.tokens = [];
-    this.totalSupply = await this.patentContract.methods.totalSupply().call();
+   // this.totalSupply = await this.patentContract.methods.totalSupply().call();    //*EDIT*
+   this.totalSupply = await this.patentContract.methods.totalSupply().call();
 
     // fetch json metadata from IPFS (name, description, image, etc)
     const fetchMetadata = (reference_uri) => fetch(`https://gateway.pinata.cloud/ipfs/${reference_uri.replace("ipfs://", "")}`, { mode: "cors" }).then((resp) => resp.json());
@@ -70,6 +74,7 @@ const dApp = {
                 <div class="card-image">
                   <img id="dapp-image" src="https://gateway.pinata.cloud/ipfs/${token.image.replace("ipfs://", "")}">
                   <span id="dapp-name" class="card-title">${token.name}</span>
+		  <span id="dapp-tokenid" class="card-title">${token.tokenId}</span>
                 </div>
                 <div class="card-action">
                   <input type="number" min="${token.highestBid + 1}" name="dapp-wei" value="${token.highestBid + 1}" ${token.auctionEnded ? 'disabled' : ''}>
@@ -91,8 +96,7 @@ const dApp = {
   },
   bid: async function(event) {
     const tokenId = $(event.target).attr("id");
-    const ether = $(event.target).prev().val();
-    wei = web3.utils.toWei(ether, 'ether');
+    const wei = Number($(event.target).prev().val());
     await this.patentContract.methods.bid(tokenId).send({from: this.accounts[0], value: wei}, async () => {
       await this.updateUI();
     });
@@ -109,6 +113,7 @@ const dApp = {
       await this.updateUI();
     });
   },
+
   registerPatent: async function() {
     const name = $("#dapp-register-name").val();
     const image = document.querySelector('input[type="file"]');
@@ -120,7 +125,7 @@ const dApp = {
       M.toast({ html: "Please fill out then entire form!" });
       return;
     }
-
+    
     const image_data = new FormData();
     image_data.append("file", image.files[0]);
     image_data.append("pinataOptions", JSON.stringify({cidVersion: 1}));
