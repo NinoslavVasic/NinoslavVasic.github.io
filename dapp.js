@@ -1,11 +1,6 @@
-<<<<<<< HEAD
+
 // @TODO: Update this address to match your deployed PatentMarket contract!
 const contractAddress = "0xf1bc2f30a21E391C46515D88C08e6caAbbfCdB10";
-=======
-/ @TODO: Update this address to match your deployed PatentMarket contract!
-const contractAddress = "0xf1bc2f30a21E391C46515D88C08e6caAbbfCdB10";
-document.getElementById("dispContractAddress").innerHTML = contractAddress;
->>>>>>> 9191815bf969055c25b268a754599271b5e43dd0
 
 const dApp = {
   ethEnabled: function() {
@@ -117,7 +112,7 @@ const dApp = {
     });
   },
 
-  _registerPatent: async function () {
+  registerPatent: async function () {
     const name = $("#dapp-register-name").val();
     const image = document.querySelector('input[type="file"]');
     const pinata_api_key = $("#dapp-pinata-api-key").val();
