@@ -1,5 +1,5 @@
 // @TODO: Update this address to match your deployed PatentMarket contract!
-const contractAddress = "0xf20a08c871B3BdC3185960710EB89835B157f9C6";
+const contractAddress = "0x21ad54fFD45Ae847A2BdC31aFFb8718916498BB7";
 
 const dApp = {
   ethEnabled: function() {
