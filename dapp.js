@@ -16,30 +16,29 @@ const dApp = {
   collectVars: async function() {
     // get Patent tokens
     this.tokens = [];
-   // this.totalSupply = await this.ptntContract.methods.totalSupply().call();    //*EDIT*
-   this.totalSupply = await this.ptntContract.methods.totalSupply().call();
+   // this.totalSupply = await this.patentContract.methods.totalSupply().call();    //*EDIT*
+   this.totalSupply = await this.patentContract.methods.totalSupply().call();
 
     // fetch json metadata from IPFS (name, description, image, etc)
     const fetchMetadata = (reference_uri) => fetch(`https://gateway.pinata.cloud/ipfs/${reference_uri.replace("ipfs://", "")}`, { mode: "cors" }).then((resp) => resp.json());
 
     for (let i = 1; i <= this.totalSupply; i++) {
       try {
-        const token_uri = await this.ptntContract.methods.tokenURI(i).call();
+        const token_uri = await this.patentContract.methods.tokenURI(i).call();
         console.log('token uri', token_uri)
         const token_json = await fetchMetadata(token_uri);
         console.log('token json', token_json)
         this.tokens.push({
           tokenId: i,
-          highestBid: Number(await this.ptntContract.methods.highestBid(i).call()),
-          auctionEnded: Boolean(await this.ptntContract.methods.auctionEnded(i).call()),
-          owner: await this.ptntContract.methods.ownerOf(i).call(),
-	  pendingReturn: Number(await this.ptntContract.methods.pendingReturn(i, this.accounts[0]).call()),
+          highestBid: Number(await this.patentContract.methods.highestBid(i).call()),
+          auctionEnded: Boolean(await this.patentContract.methods.auctionEnded(i).call()),
+          pendingReturn: Number(await this.patentContract.methods.pendingReturn(i, this.accounts[0]).call()),
           auction: new window.web3.eth.Contract(
             this.auctionJson,
-            await this.ptntContract.methods.auctions(i).call(),
+            await this.patentContract.methods.auctions(i).call(),
             { defaultAccount: this.accounts[0] }
           ),
-          
+           owner: await this.patentContract.methods.ownerOf(i).call(),
           ...token_json
         });
       } catch (e) {
@@ -96,20 +95,20 @@ const dApp = {
   bid: async function(event) {
     const tokenId = $(event.target).attr("id");
     const wei = Number($(event.target).prev().val());
-    await this.ptntContract.methods.bid(tokenId).send({from: this.accounts[0], value: wei}, async () => {
+    await this. owner: await this.patentContract.methods.ownerOf(i).call(),ptntContract.methods.bid(tokenId).send({from: this.accounts[0], value: wei}, async () => {
       await this.updateUI();
     });
   },
   endAuction: async function(event) {
     const tokenId = $(event.target).attr("id");
-    await this.ptntContract.methods.endAuction(tokenId).send({from: this.accounts[0]}, async () => {
+    await this.patentContract.methods.endAuction(tokenId).send({from: this.accounts[0]}, async () => {
       await this.updateUI();
     });
   },
   withdraw: async function(event) {
     const tokenId = $(event.target).attr("id");
     await this.tokens[tokenId].auction.methods.withdraw().send({from: this.accounts[0]}, async () => {
-      await this.updateUI();
+    await this.updateUI();
     });
   },
   registerPatent: async function() {
@@ -168,7 +167,7 @@ const dApp = {
       M.toast({ html: `Success. Reference URI located at ${reference_uri}.` });
       M.toast({ html: "Sending to blockchain..." });
 
-      await this.ptntContract.methods.registerPatent(reference_uri).send({from: this.accounts[0]}, async () => {
+      await this.patentContract.methods.registerPatent(reference_uri).send({from: this.accounts[0]}, async () => {
         $("#dapp-register-name").val("");
         $("#dapp-register-image").val("");
         await this.updateUI();
@@ -190,14 +189,14 @@ const dApp = {
     this.patentJson = await (await fetch("./PatentMarket.json")).json();
     this.auctionJson = await (await fetch("./PatentAuction.json")).json();
 
-    this.ptntContract = new window.web3.eth.Contract(
+    this.patentContract = new window.web3.eth.Contract(
       this.patentJson,
       this.contractAddress,
       { defaultAccount: this.accounts[0] }
     );
-    console.log("Contract object", this.ptntContract);
+    console.log("Contract object", this.patentContract);
 
-    this.isAdmin = this.accounts[0] == await this.ptntContract.methods.owner().call();
+    this.isAdmin = this.accounts[0] == await this.patentContract.methods.owner().call();
 
     await this.updateUI();
   }
