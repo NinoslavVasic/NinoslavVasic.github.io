@@ -1,5 +1,5 @@
 // @TODO: Update this address to match your deployed PatentMarket contract!
-const contractAddress = "0x80d809297e295903D23A070b7d1ACf7A21849c4b";
+const contractAddress = "0x93FF7109C286d4FeA171d2CdA893d429AF0e22A8";
 document.getElementById("dispContractAddress").innerHTML = contractAddress;
 
 const dApp = {
@@ -29,9 +29,10 @@ const dApp = {
         console.log('token uri', token_uri)
         const token_json = await fetchMetadata(token_uri);
         console.log('token json', token_json)
+	console.log('token Category', token_json.rCategory)
         this.tokens.push({
-          tkIdp1: i+1,
 	  tokenId: i,
+	  tokenCat: token_json.rCategory,  
           highestBid: Number(await this.patentContract.methods.highestBid(i).call()),
           auctionEnded: Boolean(await this.patentContract.methods.auctionEnded(i).call()),
           pendingReturn: Number(await this.patentContract.methods.pendingReturn(i, this.accounts[0]).call()),
@@ -75,15 +76,10 @@ const dApp = {
                 <div class="card-image">
                   <img id="dapp-image" src="https://gateway.pinata.cloud/ipfs/${token.image.replace("ipfs://", "")}">
                   <span id="dapp-name" class="card-title">${token.name}</span>
-<<<<<<< HEAD
 		</div>
-=======
-		  <span id="dapp-tokenid" class="card-title">${token.tokenId}</span>
-                </div>
->>>>>>> 6e4776a4ae716a7e471e5659a5faa803bc598383
                 <div class="card-action">
                   <input type="number" min="${token.highestBid + 1}" name="dapp-wei" value="${token.highestBid + 1}" ${token.auctionEnded ? 'disabled' : ''}>
-                  ${token.tkIdp1}
+                  ${token.tokenCat}
 		  ${token.auctionEnded ? owner : bid}
                   ${token.pendingReturn > 0 ? withdraw : ''}
                   ${token.pendingReturn > 0 ? pendingWithdraw : ''}
