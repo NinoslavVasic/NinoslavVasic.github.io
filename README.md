@@ -24,3 +24,4 @@ Click [here](https://ninoslavvasic.github.io/) to launch the PatentMarket applic
 ![](https://github.com/NinoslavVasic/NinoslavVasic.github.io/blob/master/skeleton/Slide13.PNG)
 ![](https://github.com/NinoslavVasic/NinoslavVasic.github.io/blob/master/skeleton/Slide14.PNG)
 ![](https://github.com/NinoslavVasic/NinoslavVasic.github.io/blob/master/skeleton/Slide15.PNG)
+![](https://github.com/NinoslavVasic/NinoslavVasic.github.io/blob/master/skeleton/Slide16.PNG)
